@@ -1,0 +1,29 @@
+﻿.ss-banner-floating-container{
+  overflow: hidden;
+  position:relative;
+  .ss-banner-floating{
+    padding:0;
+    position:relative;
+    list-style: none;
+    white-space: nowrap;
+    transform: translate3d(0, 0, 0);
+    // animation: ss_banner_floating_scroll 5s linear infinite;
+    &:hover{
+        animation-play-state: paused;
+    }
+    >*{
+      display: inline-block;
+      position:relative;
+      padding:.5em;
+    }
+  }
+  .ss-banner-fader{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: linear-gradient(to right,#fff 1%, transparent 10%, transparent 90%, #fff 99%);
+  }
+}
