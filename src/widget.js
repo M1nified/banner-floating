@@ -4,7 +4,7 @@
         var time = 15000;
         var w = 0;
         jQuery(".ss-banner-floating>*").each(function(){
-            w += $(this).outerWidth(true);
+            w += jQuery(this).outerWidth(true);
         });
         jQuery(".ss-banner-floating").append(jQuery(".ss-banner-floating>*").clone());
         // var transition = "transition 5s linear";
