@@ -1,17 +1,20 @@
 ﻿(function(jQuery) {
 	jQuery(function() { //on DOM ready
-		//jQuery(".ss-banner-floating").simplyScroll();
+		//jQuery(".banner-floating").simplyScroll();
         var time = 15000;
         var w = 0;
-        jQuery(".ss-banner-floating>*").each(function(){
+        jQuery(".banner-floating>*").each(function(){
             w += jQuery(this).outerWidth(true);
         });
-        jQuery(".ss-banner-floating").append(jQuery(".ss-banner-floating>*").clone());
+        var repeat = Math.ceil(parseInt(jQuery(".banner-floating-container").width())/w)+1;
+        console.log(repeat);
+        var base = jQuery(".banner-floating>*").clone();
+        for(var i = 0; i<repeat;i++) jQuery(".banner-floating").append(base.clone());
         // var transition = "transition 5s linear";
         // var transition_back = "transition 0s linear";
-        // jQuery(".ss-banner-floating").css('transition',transition).css('transform','translateX(-'+w+'px)');
+        // jQuery(".banner-floating").css('transition',transition).css('transform','translateX(-'+w+'px)');
         // setTimeout(function(){
-        //     jQuery(".ss-banner-floating").css('transition',transition_back).css('transform','translateX(0)');
+        //     jQuery(".banner-floating").css('transition',transition_back).css('transform','translateX(0)');
         // },5000);
         var pos = 0;
         var tstart = 0
@@ -27,8 +30,8 @@
             var m = t - tstart;
             var kl = klnum * m/time;
             var pos = - w * kl/klnum;
-            if(jQuery(".ss-banner-floating").is(':hover')){
-                correction = parseInt(jQuery(".ss-banner-floating").css('left')) - pos; 
+            if(jQuery(".banner-floating").is(':hover')){
+                correction = parseInt(jQuery(".banner-floating").css('left')) - pos; 
             }
             pos += correction;
             if(pos < -w){
@@ -37,7 +40,7 @@
                 pos -= w;
             }
             // console.log(pos);
-            jQuery(".ss-banner-floating").css('left',pos + 'px');
+            jQuery(".banner-floating").css('left',pos + 'px');
             // console.log('step')
         },time/1000/60);
 	});
