@@ -87,13 +87,10 @@ add_action('widgets_init','ss_banner_floating\ss_banner_floating_load_widget');
 function ss_banner_floating_enqueue_style(){
     wp_register_style('ss_banner_floating_widget_style',plugin_dir_url().basename(__DIR__).'/widget.css');
     wp_enqueue_style( 'ss_banner_floating_widget_style' );
-    wp_register_style('jquery.simplyscroll.css',plugin_dir_url().basename(__DIR__).'/lib/jquery.simplyscroll.min.css');
-    wp_enqueue_style( 'jquery.simplyscroll.css' );
 }
 add_action('wp_enqueue_scripts','ss_banner_floating\ss_banner_floating_enqueue_style');
 
 function ss_banner_floating_enqueue_script(){
-    wp_enqueue_script('jquery.simplyscroll.js',plugin_dir_url().basename(__DIR__).'/lib/jquery.simplyscroll.min.js',['jquery']);
     wp_enqueue_script('ss_banner_floating_widget_script',plugin_dir_url().basename(__DIR__).'/widget.js',['jquery']);
 }
 add_action('wp_enqueue_scripts','ss_banner_floating\ss_banner_floating_enqueue_script');
