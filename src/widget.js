@@ -7,7 +7,7 @@
             w += jQuery(this).outerWidth(true);
         });
         var repeat = Math.ceil(parseInt(jQuery(".banner-floating-container").width())/w)+1;
-        console.log(repeat);
+        // console.log(repeat);
         var base = jQuery(".banner-floating>*").clone();
         for(var i = 0; i<repeat;i++) jQuery(".banner-floating").append(base.clone());
         // var transition = "transition 5s linear";
