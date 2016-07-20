@@ -30,9 +30,11 @@
             var m = t - tstart;
             var kl = klnum * m/time;
             var pos = - w * kl/klnum;
-            if(jQuery(".banner-floating").is(':hover')){
-                correction = parseInt(jQuery(".banner-floating").css('left')) - pos; 
-            }
+            try{
+                if(jQuery(".banner-floating").is(':hover')){
+                    correction = parseInt(jQuery(".banner-floating").css('left')) - pos; 
+                }
+            }catch(e){}
             pos += correction;
             if(pos < -w){
                 pos += w;
