@@ -17,12 +17,14 @@ class banner_floating_widget extends \WP_Widget{
     public function widget($args,$instance){
         echo $args['before_widget'];
         $banners = isset($instance['banners'])?$instance['banners']:[];
+        $shadow = isset($instance['shadow'])?$instance['shadow']:false;
+        $shadow = ($shadow==true)?'shadow':'';
         if(sizeof($banners)>0){
             $width = isset($instance['width'])?$instance['width']:self::DEFAULTS['width'];
             $height = isset($instance['height'])?$instance['height']:self::DEFAULTS['height'];
             echo "<div class=\"banner-floating-container\"><ul class=\"banner-floating\" style=\"width:{$width};max-height:{$height}\">";
             foreach ($banners as $key => $banner) {
-                print "<li><a href=\"{$banner['link']}\"><img src=\"{$banner['img']}\"></a></li>";
+                print "<li><a href=\"{$banner['link']}\"><img src=\"{$banner['img']}\" class=\"{$shadow}\"></a></li>";
             }
             echo '</ul>';
             if($instance['fader']==true){
@@ -35,6 +37,7 @@ class banner_floating_widget extends \WP_Widget{
     public function form($instance){
         $title = isset($instance['title'])?$instance['title']:'';
         $fader = isset($instance['fader'])?$instance['fader']:false;
+        $shadow = isset($instance['shadow'])?$instance['shadow']:false;
         $width = isset($instance['width'])?$instance['width']:self::DEFAULTS['width'];
         $height = isset($instance['height'])?$instance['height']:self::DEFAULTS['height'];
         $banners = isset($instance['banners'])?$instance['banners']:[];
@@ -50,6 +53,10 @@ class banner_floating_widget extends \WP_Widget{
         <p>
         <input class="widefat" id="<?php echo $this->get_field_id( 'fader' ); ?>" name="<?php echo $this->get_field_name( 'fader' ); ?>" type="checkbox" value="true" <?php echo ($fader==true)?'checked':''; ?> />
         <label for="<?php echo $this->get_field_id( 'fader' ); ?>"><?php _e( 'Fader' ); ?></label>
+        </p>
+        <p>
+        <input class="widefat" id="<?php echo $this->get_field_id( 'shadow' ); ?>" name="<?php echo $this->get_field_name( 'shadow' ); ?>" type="checkbox" value="true" <?php echo ($shadow==true)?'checked':''; ?> />
+        <label for="<?php echo $this->get_field_id( 'shadow' ); ?>"><?php _e( 'Shadow' ); ?></label>
         </p>
         <p>
         <label for="<?php echo $this->get_field_id( 'width' ); ?>"><?php _e( 'Width:' ); ?></label>
