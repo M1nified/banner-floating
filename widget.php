@@ -25,7 +25,8 @@ class banner_floating_widget extends \WP_Widget{
             $height = isset($instance['height'])?$instance['height']:self::DEFAULTS['height'];
             echo "<div class=\"banner-floating-container\" data-time=\"{$time}\"><ul class=\"banner-floating\" style=\"width:{$width};max-height:{$height}\">";
             foreach ($banners as $key => $banner) {
-                print "<li><a href=\"{$banner['link']}\"><img src=\"{$banner['img']}\" class=\"{$shadow}\"></a></li>";
+                $alt = !empty($banner['alt']) ? ('alt="'.$banner['alt'].'" ') : '';
+                print "<li><a href=\"{$banner['link']}\"><img src=\"{$banner['img']}\" {$alt} class=\"{$shadow}\"></a></li>";
             }
             echo '</ul>';
             if($instance['fader']==true){
@@ -44,7 +45,7 @@ class banner_floating_widget extends \WP_Widget{
         $height = isset($instance['height'])?$instance['height']:self::DEFAULTS['height'];
         $banners = isset($instance['banners'])?$instance['banners']:[];
         $banners[] = [
-            "link" => "", "img" => ""
+            "link" => "", "img" => "", "alt" => ""
         ];
         //print_r($banners);
         ?>
@@ -77,6 +78,7 @@ class banner_floating_widget extends \WP_Widget{
             <li>
             <input type="text" class="widefat" name="<?php echo $this->get_field_name('banners') . '['.$key.']'; ?>[link]" value="<?php echo $banner['link']; ?>" placeholder="Link">
             <input type="text" class="widefat" name="<?php echo $this->get_field_name('banners') . '['.$key.']'; ?>[img]" value="<?php echo $banner['img']; ?>" placeholder="Picture">
+            <input type="text" class="widefat" name="<?php echo $this->get_field_name('banners') . '['.$key.']'; ?>[alt]" value="<?php echo $banner['alt']; ?>" placeholder="Alternative text">
             </li>
             <?php
         }
