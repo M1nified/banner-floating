@@ -7,4 +7,5 @@
  */
  defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
+ include_once(realpath(__DIR__.'/functions.php'));
  include_once(realpath(__DIR__.'/widget.php'));
