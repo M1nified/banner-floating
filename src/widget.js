@@ -4,22 +4,25 @@
 		//jQuery(".banner-floating").simplyScroll();
         jQuery(".banner-floating-container").each(function(){
             // console.log(this);
+            var jquery_banner_floating = jQuery(".banner-floating",this);
+            var jquery_banner_floating_in_any = jQuery(".banner-floating>*",this);
             var time = parseInt(jQuery(this).data('time')) || 15000;
             var direction = jQuery(this).data('direction') || 'right2left';
             var relative_to = direction == 'top2bottom' || direction == 'bottom2top' ? 'top' : 'left';
+            // var relative_to = ['top2bottom','bottom2top'].indexOf(direction)>=0 ? 'top' : 'left';
             var is_direction_left = relative_to == 'left';
             var should_reverse_position = direction == 'left2right' || direction == 'top2bottom';
             var size = 0;
-            jQuery(".banner-floating>*",this).each(function(){
+            jquery_banner_floating_in_any.each(function(){
                 size += is_direction_left ? jQuery(this).outerWidth(true) : jQuery(this).outerHeight(true);
             });
             var repeat = is_direction_left ? Math.ceil(parseInt(jQuery(this).width())/size)+1 : Math.ceil(parseInt(jQuery(this).height())/size)+1;
             // console.log(repeat);
-            var base = jQuery(".banner-floating>*",this).clone();
+            var base = jquery_banner_floating_in_any.clone();
             // console.log(base);
-            for(var i = 0; i<repeat;i++) jQuery(".banner-floating",this).append(base.clone());
+            for(var i = 0; i<repeat;i++) jquery_banner_floating.append(base.clone());
             if(should_reverse_position){
-                jQuery(".banner-floating",this).css(relative_to,(-size)+'px');
+                jquery_banner_floating.css(relative_to,(-size)+'px');
             }
             // var transition = "transition 5s linear";
             // var transition_back = "transition 0s linear";
@@ -42,10 +45,10 @@
                 var kl = klnum * m/time;
                 var pos = - size * kl/klnum;
                 try{
-                    if(jQuery(".banner-floating",this).is(':hover')){
+                    if(jquery_banner_floating.is(':hover')){
                         correction = (should_reverse_position ?
-                                            - parseInt(jQuery(".banner-floating",this).css(relative_to))
-                                        :   parseInt(jQuery(".banner-floating",this).css(relative_to)))
+                                            - parseInt(jquery_banner_floating.css(relative_to))
+                                        :   parseInt(jquery_banner_floating.css(relative_to)))
                                     - pos; 
                     }
                 }catch(e){}
@@ -59,9 +62,9 @@
                 if(should_reverse_position){
                     pos = -pos - size;
                 }
-                jQuery(".banner-floating",this).css(relative_to,pos + 'px');
+                jquery_banner_floating.css(relative_to,pos + 'px');
                 // console.log('step')
-            }.bind(this),1000/60);
+            }.bind(this),16.6);//1000/60
             // }.bind(this),time/1000/60);
         })
 	});
