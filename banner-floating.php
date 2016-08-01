@@ -1,8 +1,8 @@
 <?php namespace banner_floating;
 /**
  * Plugin Name: Floating Banner
- * Description: Floating (scrolling) images
- * Version: 0.1.0
+ * Description: This widget enables you to include scrolling list of images to your WP website.
+ * Version: 1.0.0
  * Author: M1nified
  */
  defined( 'ABSPATH' ) or die( 'No script kiddies please!' );

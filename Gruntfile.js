@@ -1,22 +1,41 @@
 'use strict';
 module.exports = function(grunt){
+
+    var sassfiles = [
+        {
+            src:['src/widget.scss'],
+            dest:'widget.css'
+        },
+        {
+            src:['lib/jquery.simplyscroll.css'],
+            dest:'lib/jquery.simplyscroll.min.css'
+        }
+    ];
+    var uglifyfiles = [
+        {
+            src:['src/widget.js'],
+            dest:'widget.js'
+        }
+    ];
     
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         uglify:{
             options:{
-                beatify:false
+                beautify:false
             },
             base:{
-                files:[
-                    {
-                        src:['src/widget.js'],
-                        dest:'widget.js'
-                    }
-                ]
+                options:{
+                    sourceMap:true
+                },
+                files:uglifyfiles
+            },
+            production:{
+                files:uglifyfiles
             }
         },
         sass:{
@@ -25,19 +44,24 @@ module.exports = function(grunt){
                     sourceMap:true,
                     outputStyle:'compressed'
                 },
-                files:[
-                    {
-                        src:['src/widget.scss'],
-                        dest:'widget.css'
-                    },
-                    {
-                        src:['lib/jquery.simplyscroll.css'],
-                        dest:'lib/jquery.simplyscroll.min.css'
-                    }
-                ]
+                files:sassfiles
+            },
+            production:{
+                options:{
+                    sourceMap:false,
+                    outputStyle:'compressed'
+                },
+                files:sassfiles
+            }
+        },
+        clean:{
+            production:{
+                src:['*.map']
             }
         }
     });
 
     grunt.registerTask('default',['uglify:base','sass:base']);
+    grunt.registerTask('produce',['clean:production','uglify:production','sass:production']);
+    grunt.registerTask('production',['produce']);
 }
