@@ -18,15 +18,17 @@ class banner_floating_widget extends \WP_Widget{
         echo $args['before_widget'];
         $banners = isset($instance['banners'])?$instance['banners']:[];
         $shadow = isset($instance['shadow'])?$instance['shadow']:false;
+        $direction = isset($instance['direction'])?$instance['direction']:'right2left';
+        $li_style = (in_array($direction,['bottom2top','top2bottom'])) ? 'style="display:block" ' : '';
         $time = get_time($instance);
         $shadow = ($shadow==true)?'shadow':'';
         if(sizeof($banners)>0){
             $width = isset($instance['width'])?$instance['width']:self::DEFAULTS['width'];
             $height = isset($instance['height'])?$instance['height']:self::DEFAULTS['height'];
-            echo "<div class=\"banner-floating-container\" data-time=\"{$time}\"><ul class=\"banner-floating\" style=\"width:{$width};max-height:{$height}\">";
+            echo "<div class=\"banner-floating-container\" data-time=\"{$time}\" data-direction=\"{$direction}\"><ul class=\"banner-floating\" style=\"width:{$width};max-height:{$height}\">";
             foreach ($banners as $key => $banner) {
                 $alt = !empty($banner['alt']) ? ('alt="'.$banner['alt'].'" ') : '';
-                print "<li><a href=\"{$banner['link']}\"><img src=\"{$banner['img']}\" {$alt} class=\"{$shadow}\"></a></li>";
+                print "<li {$li_style}><a href=\"{$banner['link']}\"><img src=\"{$banner['img']}\" {$alt} class=\"{$shadow}\"></a></li>";
             }
             echo '</ul>';
             if($instance['fader']==true){
@@ -40,6 +42,7 @@ class banner_floating_widget extends \WP_Widget{
         $title = isset($instance['title'])?$instance['title']:'';
         $fader = isset($instance['fader'])?$instance['fader']:false;
         $shadow = isset($instance['shadow'])?$instance['shadow']:false;
+        $direction = isset($instance['direction'])?$instance['direction']:'right2left';
         $time = get_time($instance);
         $width = isset($instance['width'])?$instance['width']:self::DEFAULTS['width'];
         $height = isset($instance['height'])?$instance['height']:self::DEFAULTS['height'];
@@ -52,6 +55,15 @@ class banner_floating_widget extends \WP_Widget{
         <p>
         <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
         <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+        </p>
+        <p>
+        <label for="<?php echo $this->get_field_id('direction'); ?>"><?php _e('Direction:'); ?></label>
+        <select class="widefat" id="<?php echo $this->get_field_id('direction'); ?>" name="<?php echo $this->get_field_name('direction'); ?>">
+            <option value="right2left" <?php echo $direction=='right2left'?'selected':''; ?>>Right to left</option>
+            <option value="left2right" <?php echo $direction=='left2right'?'selected':''; ?>>Left to right</option>
+            <option value="bottom2top" <?php echo $direction=='bottom2top'?'selected':''; ?>>Bottom to top</option>
+            <option value="top2bottom" <?php echo $direction=='top2bottom'?'selected':''; ?>>Top to bottom</option>
+        </select>
         </p>
         <p>
         <label for="<?php echo $this->get_field_id( 'time' ); ?>"><?php _e( 'Time:' ); ?> (ms)</label>
