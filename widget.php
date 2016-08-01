@@ -19,7 +19,8 @@ class banner_floating_widget extends \WP_Widget{
         $banners = isset($instance['banners'])?$instance['banners']:[];
         $shadow = isset($instance['shadow'])?$instance['shadow']:false;
         $direction = isset($instance['direction'])?$instance['direction']:'right2left';
-        $li_style = (in_array($direction,['bottom2top','top2bottom'])) ? 'style="display:block" ' : '';
+        $is_vertical = in_array($direction,['bottom2top','top2bottom']);
+        $li_style = $is_vertical ? 'style="display:block" ' : '';
         $time = get_time($instance);
         $shadow = ($shadow==true)?'shadow':'';
         if(sizeof($banners)>0){
@@ -32,7 +33,8 @@ class banner_floating_widget extends \WP_Widget{
             }
             echo '</ul>';
             if($instance['fader']==true){
-                echo '<div class="banner-fader"></div>';
+                $fader_class_dir = $is_vertical ? ' banner-fader-vertical' : ' banner-fader-horizontal';
+                echo "<div class=\"banner-fader{$fader_class_dir}\"></div>";
             }
             echo '</div>';
         }
