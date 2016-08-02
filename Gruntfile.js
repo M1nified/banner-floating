@@ -3,17 +3,13 @@ module.exports = function(grunt){
 
     var sassfiles = [
         {
-            src:['src/widget.scss'],
+            src:['_src/widget.scss'],
             dest:'widget.css'
-        },
-        {
-            src:['lib/jquery.simplyscroll.css'],
-            dest:'lib/jquery.simplyscroll.min.css'
         }
     ];
     var uglifyfiles = [
         {
-            src:['src/widget.js'],
+            src:['_src/widget.js'],
             dest:'widget.js'
         }
     ];
@@ -21,6 +17,7 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -36,6 +33,16 @@ module.exports = function(grunt){
             },
             production:{
                 files:uglifyfiles
+            },
+            wp:{
+                files:[
+                    {
+                        expand:true,
+                        cwd:'_src',
+                        src:['widget.js'],
+                        dest:'_wp_production'
+                    }
+                ]
             }
         },
         sass:{
@@ -52,11 +59,37 @@ module.exports = function(grunt){
                     outputStyle:'compressed'
                 },
                 files:sassfiles
+            },
+            wp:{
+                options:{
+                    sourceMap:false,
+                    outputStyle:'compressed'
+                },
+                files:[
+                    {
+                        expand:true,
+                        cwd:'_src',
+                        src:['widget.scss'],
+                        dest:'_wp_production'
+                    }
+                ]
             }
         },
         clean:{
             production:{
                 src:['*.map']
+            }
+        },
+        copy:{
+            wp:{
+                files:[
+                    {
+                        expand:true,
+                        // cwd:'.',
+                        src:['*.php'],
+                        dest:'_wp_production'
+                    }
+                ]
             }
         }
     });
@@ -64,4 +97,5 @@ module.exports = function(grunt){
     grunt.registerTask('default',['uglify:base','sass:base']);
     grunt.registerTask('produce',['clean:production','uglify:production','sass:production']);
     grunt.registerTask('production',['produce']);
+    grunt.registerTask('wp',['uglify:wp','sass:wp','copy:wp']);
 }
