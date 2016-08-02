@@ -19,17 +19,22 @@ class banner_floating_widget extends \WP_Widget{
         $banners = isset($instance['banners'])?$instance['banners']:[];
         $shadow = isset($instance['shadow'])?$instance['shadow']:false;
         $direction = isset($instance['direction'])?$instance['direction']:'right2left';
+        $autosize = isset($instance['autosize'])?$instance['autosize']:false;
         $is_vertical = in_array($direction,['bottom2top','top2bottom']);
-        $li_style = $is_vertical ? 'style="display:block" ' : '';
+        $li_style = $is_vertical ? 'display:block;' : '';
         $time = get_time($instance);
         $shadow = ($shadow==true)?'shadow':'';
         if(sizeof($banners)>0){
             $width = isset($instance['width'])?$instance['width']:self::DEFAULTS['width'];
             $height = isset($instance['height'])?$instance['height']:self::DEFAULTS['height'];
             echo "<div class=\"banner-floating-container\" data-time=\"{$time}\" data-direction=\"{$direction}\"><ul class=\"banner-floating\" style=\"width:{$width};max-height:{$height}\">";
+            $max_size = '';
+            if($autosize == true){
+                $max_size = "max-width:{$width};max-height:{$height};";
+            }
             foreach ($banners as $key => $banner) {
                 $alt = !empty($banner['alt']) ? ('alt="'.$banner['alt'].'" ') : '';
-                print "<li {$li_style}><a href=\"{$banner['link']}\"><img src=\"{$banner['img']}\" {$alt} class=\"{$shadow}\"></a></li>";
+                print "<li style=\"{$li_style}{$max_size}\"><a href=\"{$banner['link']}\"><img src=\"{$banner['img']}\" {$alt} class=\"{$shadow}\" style=\"{$max_size}\"></a></li>";
             }
             echo '</ul>';
             if($instance['fader']==true){
@@ -45,6 +50,7 @@ class banner_floating_widget extends \WP_Widget{
         $fader = isset($instance['fader'])?$instance['fader']:false;
         $shadow = isset($instance['shadow'])?$instance['shadow']:false;
         $direction = isset($instance['direction'])?$instance['direction']:'right2left';
+        $autosize = isset($instance['autosize'])?$instance['autosize']:false;
         $time = get_time($instance);
         $width = isset($instance['width'])?$instance['width']:self::DEFAULTS['width'];
         $height = isset($instance['height'])?$instance['height']:self::DEFAULTS['height'];
@@ -78,6 +84,10 @@ class banner_floating_widget extends \WP_Widget{
         <p>
         <input class="widefat" id="<?php echo $this->get_field_id( 'shadow' ); ?>" name="<?php echo $this->get_field_name( 'shadow' ); ?>" type="checkbox" value="true" <?php echo ($shadow==true)?'checked':''; ?> />
         <label for="<?php echo $this->get_field_id( 'shadow' ); ?>"><?php _e( 'Shadow' ); ?></label>
+        </p>
+        <p>
+        <input class="widefat" id="<?php echo $this->get_field_id( 'autosize' ); ?>" name="<?php echo $this->get_field_name( 'autosize' ); ?>" type="checkbox" value="true" <?php echo ($autosize==true)?'checked':''; ?> />
+        <label for="<?php echo $this->get_field_id( 'autosize' ); ?>"><?php _e( 'Autosize images' ); ?></label>
         </p>
         <p>
         <label for="<?php echo $this->get_field_id( 'width' ); ?>"><?php _e( 'Width:' ); ?></label>

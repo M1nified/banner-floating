@@ -2,11 +2,13 @@
   overflow: hidden;
   position:relative;
   .banner-floating{
+    // overflow: hidden;
     padding:0;
     position:relative;
     list-style: none;
     white-space: nowrap;
     transform: translate3d(0, 0, 0);
+    margin:0;
     // animation: ss_banner_floating_scroll 5s linear infinite;
     &:hover{
         animation-play-state: paused;
@@ -15,6 +17,14 @@
       display: inline-block;
       position:relative;
       padding:.5em;
+      box-sizing: border-box;
+      overflow: hidden;
+      a{
+        display: block;
+      }
+      img{
+        padding:.5em;
+      }
     }
     img.shadow{
       box-shadow: 2px 2px 8px #383838;

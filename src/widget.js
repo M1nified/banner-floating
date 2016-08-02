@@ -16,6 +16,7 @@
             jquery_banner_floating_in_any.each(function(){
                 size += is_direction_left ? jQuery(this).outerWidth(true) : jQuery(this).outerHeight(true);
             });
+            // console.log(size);
             var repeat = is_direction_left ? Math.ceil(parseInt(jQuery(this).width())/size)+1 : Math.ceil(parseInt(jQuery(this).height())/size)+1;
             // console.log(repeat);
             var base = jquery_banner_floating_in_any.clone();
