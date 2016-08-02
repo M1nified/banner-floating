@@ -19,8 +19,12 @@
       padding:.5em;
       box-sizing: border-box;
       overflow: hidden;
+      vertical-align: middle;
       a{
         display: block;
+        &.banner-floating-link-text{
+
+        }
       }
       img{
         padding:.5em;
