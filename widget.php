@@ -10,7 +10,7 @@ class banner_floating_widget extends \WP_Widget{
             'banner_floating_widget',
             __('Banner Floating','banner_floating_domain'),
             array(
-                'description' => __('Modul wyswietla informacje o kursach.','banner_floating_domain')
+                'description' => __('Creates floating images.','banner_floating_domain')
             )
         );
     }
