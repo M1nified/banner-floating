@@ -44,7 +44,7 @@ class banner_floating_widget extends \WP_Widget{
                 print "<li style=\"{$li_style}{$max_size}\"><a href=\"{$banner['link']}\" {$a_class}>{$content_to_display}</a></li>";
             }
             echo '</ul>';
-            if($instance['fader']==true){
+            if(isset($instance['fader']) && $instance['fader']==true){
                 $fader_class_dir = $is_vertical ? ' banner-fader-vertical' : ' banner-fader-horizontal';
                 echo "<div class=\"banner-fader{$fader_class_dir}\"></div>";
             }
