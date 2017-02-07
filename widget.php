@@ -137,6 +137,6 @@ function banner_floating_enqueue_style(){
 add_action('wp_enqueue_scripts','banner_floating\banner_floating_enqueue_style');
 
 function banner_floating_enqueue_script(){
-    wp_enqueue_script('banner_floating_widget_script',plugins_url(basename(plugin_dir_path(__FILE__)).'/widget.js'),['jquery']);
+    wp_enqueue_script('banner_floating_widget_script',plugins_url('/widget.js',__FILE__),['jquery'],$ver='1',$in_footer=true);
 }
 add_action('wp_enqueue_scripts','banner_floating\banner_floating_enqueue_script');
