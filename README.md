@@ -8,7 +8,7 @@ While in your WP root directory:
 
 ```bash
 cd wp-content\plugins
-git clone [this repo address]
+git clone [this repo address] banner-floating
 ```
 
 or download zipped repo and upload the contents to plugins folder.
